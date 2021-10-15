@@ -30,6 +30,8 @@ scale_colour_discrete = scale_colour_viridis_d
 scale_fill_discrete = scale_fill_viridis_d
 ```
 
+# QUESTION 1
+
 Loading Data and Cleaning Data with janitor
 ```{r}
 data("instacart")
@@ -109,6 +111,24 @@ inst_tabl2 <-
   ) 
 inst_tabl2
 ```
+
+
+# QUESTION 2
+
+Loading Data and Cleaning Data with janitor
+```{r}
+data("brfss_smart2010")
+
+behavorial_df <- 
+  brfss_smart2010 %>% 
+  janitor::clean_names() %>%
+  filter(topic == "Overall Health") %>%
+  mutate(reponse = as.factor(topic)) %>%
+  mutate(response = forcats::fct_relevel(response, c("Poor", "Fair", "Good", "Very good", "Excellent")))
+
+view(behavorial_df)
+```
+
 
 
 

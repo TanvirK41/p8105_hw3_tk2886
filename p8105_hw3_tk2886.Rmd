@@ -1,6 +1,6 @@
 ---
 title: "p8105_hw3_tk2886"
-output: html_document
+output: github_document
 ---
 
 ```{r setup, include=FALSE}
@@ -34,7 +34,7 @@ Loading Data and Cleaning Data with janitor
 ```{r}
 data("instacart")
 
-instacart_df = 
+instacart_df <- 
   instacart %>% 
   janitor::clean_names()
 ```
@@ -51,5 +51,16 @@ key_variables = names(instacart_df)
 key_variables
 ```
 The dimension of the instacart dataframe is `r dimension_instacart`. The dimensions represents the number of rows and the columns. The number of rows in the instacart dataframe are `r instacart_row`. The number of columns in the instacart dataframe are `r instacart_col`. 
+
+
+Analyzing the Aisle Column/Variable and arranging most aisles with the most 
+```{r}
+aisle_analysis <- instacart_df %>%
+  group_by(aisle) %>%
+  summarise(n_obs = n()) %>%
+  arrange(desc(n_obs))
+```
+After analyzing the data frame, there are **134 aisles**. 
+
 
 

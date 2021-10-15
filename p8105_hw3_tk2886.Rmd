@@ -41,7 +41,15 @@ instacart_df =
 
 Analysis of instacart data
 ```{r}
-
+dimension_instacart = dim(instacart_df)
+dimension_instacart
+instacart_row = nrow(instacart_df)
+instacart_row
+instacart_col = ncol(instacart_df)
+instacart_col
+key_variables = names(instacart_df)
+key_variables
 ```
+The dimension of the instacart dataframe is `r dimension_instacart`. The dimensions represents the number of rows and the columns. The number of rows in the instacart dataframe are `r instacart_row`. The number of columns in the instacart dataframe are `r instacart_col`. 
 
 

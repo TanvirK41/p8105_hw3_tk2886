@@ -68,16 +68,19 @@ Filtering the aisles with more than 10000 items ordered.
 aisle_filter <- 
   instacart_df %>%
   group_by(aisle) %>%
-  summarise(n_obs = n()) %>%
-  filter(n_obs > 10000)
+  summarise(aisle_n = n()) %>%
+  filter(aisle_n > 10000) %>%
+  ggplot(aes(x = reorder(aisle, aisle_n), y = aisle_n)) +
+  geom_bar(stat = "identity") + 
+  labs(
+    title = "Number of items ordered in each Aisle",
+    x = "Aisle Identification",
+    y = "Quantitiy purchased from each Aisle",
+    caption = "Data from the Instacart package"
+  ) + 
+  coord_flip()
 
 aisle_filter
-```
-
-
-Plotting the aisle with more than 10000 items ordered 
-```{r}
-
 ```
 
 

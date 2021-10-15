@@ -97,8 +97,7 @@ knitr::kable(inst_table1)
 
 Showing the mean hour of the day at which Pink Lady Apples and Coffee Ice Cream are ordered on each day of the week; format this table for human readers (i.e. produce a 2 x 7 table).
 ```{r}
-inst_tabl2 <-
-  filter()
+inst_tabl2 
 ```
 
 

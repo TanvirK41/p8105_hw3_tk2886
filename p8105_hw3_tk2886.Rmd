@@ -79,8 +79,20 @@ aisle_filter <-
     caption = "Data from the Instacart package"
   ) + 
   coord_flip()
+```
 
-aisle_filter
+
+Creating A table showing the three most popular items in each of the aisles “baking ingredients”, “dog food care”, and “packaged vegetables fruits”.
+```{r}
+inst_table1 <- instacart_df %>%
+  filter(aisle %in%  c("baking ingredients", "dog food care", "packaged vegetables fruits")) %>%
+  group_by(aisle, product_name) %>%
+  summarise(Product_Quantity = n()) 
+  
+  
+  
+
+view(inst_table1)
 ```
 
 

@@ -123,7 +123,6 @@ behavorial_df <-
   brfss_smart2010 %>% 
   janitor::clean_names() %>%
   filter(topic == "Overall Health") %>%
-  mutate(reponse = as.factor(topic)) %>%
   mutate(response = forcats::fct_relevel(response, c("Poor", "Fair", "Good", "Very good", "Excellent")))
 
 view(behavorial_df)
@@ -131,9 +130,8 @@ view(behavorial_df)
 
 Analyzing 2002, which states were observed at 7 or more locations? What about in 2010?
 ```{r}
-analysis_2002 <-
-  behavorial_df %>%
-  filter (year == 2002) %>%
+behavorial_df %>%
+  filter(year == 2002) %>%
   group_by(locationabbr) %>%
   summarize(count = n_distinct(locationdesc)) %>%
   filter(count >= 7)
@@ -142,16 +140,44 @@ analysis_2002 <-
 
 Analyzing 2010
 ```{r}
-analysis_2010 <-
-  behavorial_df %>%
-  filter (year == 2010) %>%
+behavorial_df %>%
+  filter(year == 2010) %>%
   group_by(locationabbr) %>%
   summarize(count = n_distinct(locationdesc)) %>%
   filter(count >= 7)
-
-view(analysis_2010)
 ```
 
 
+Creating the Spaghetti plot 
+```{r}
+behavorial_df %>%
+  filter(response == "Excellent") %>%
+  group_by(year, locationabbr) %>%
+  summarize(mean_data_value = mean(data_value, na.rm = TRUE)) %>%
+    ggplot(aes(x = year, y = mean_data_value, color = locationabbr)) + 
+    geom_line(aes(group = locationabbr)) +
+  labs(
+    title = "Average Value throughout the year ",
+    x = "Year",
+    y = "Average Value",
+    caption = "Data from the BRFSS"
+  ) + 
+  theme(legend.position = "right")
+```
+
+```{r}
+behavorial_df %>%
+  filter(
+    year %in% c("2006", "2010"), 
+    locationabbr %in% c("NY")
+  ) %>%
+  ggplot(aes(x = locationdesc, y = data_value, color = response)) +
+  geom_line(aes(group = locationdesc), alpha = 0.8) +
+  facet_grid(~year) + 
+  coord_flip()
+
+
+  
+```
 
 

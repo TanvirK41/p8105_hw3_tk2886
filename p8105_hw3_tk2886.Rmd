@@ -83,17 +83,22 @@ aisle_filter <-
 
 
 Creating A table showing the three most popular items in each of the aisles “baking ingredients”, “dog food care”, and “packaged vegetables fruits”.
-```{r}
+```{r results='asis'}
 inst_table1 <- instacart_df %>%
   filter(aisle %in%  c("baking ingredients", "dog food care", "packaged vegetables fruits")) %>%
   group_by(aisle, product_name) %>%
-  summarise(Product_Quantity = n()) 
-  
-  
-  
-
-view(inst_table1)
+  summarise(Product_Quantity = n()) %>%
+  top_n(3, wt = Product_Quantity) %>%
+  arrange(aisle, desc(Product_Quantity)) %>%
+  knitr::kable()
 ```
+
+
+Showing the mean hour of the day at which Pink Lady Apples and Coffee Ice Cream are ordered on each day of the week; format this table for human readers (i.e. produce a 2 x 7 table).
+```{r}
+
+```
+
 
 
 

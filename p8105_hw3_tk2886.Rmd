@@ -105,7 +105,7 @@ instacart_df %>%
 
 # QUESTION 2
 
-Loading Data and Cleaning Data with janitor
+Loading the Data and Cleaning the Data with janitor
 ```{r}
 data("brfss_smart2010")
 
@@ -138,22 +138,33 @@ behavorial_df %>%
 ```
 
 
-Creating the Spaghetti plot 
+Creating a Spaghetti Plot of the average value over time within a state
 ```{r}
 behavorial_df %>%
   filter(response == "Excellent") %>%
   group_by(year, locationabbr) %>%
-  summarize(mean_data_value = mean(data_value, na.rm = TRUE)) %>%
-    ggplot(aes(x = year, y = mean_data_value, color = locationabbr)) + 
-    geom_line(aes(group = locationabbr)) +
+  summarise(mean_data_value = mean(data_value, na.rm = TRUE)) %>%
+  ggplot(aes(x = year, y = mean_data_value, color = locationabbr)) +
+  geom_line(aes(group = locationabbr)) +
   labs(
     title = "Average Value throughout the year ",
     x = "Year",
     y = "Average Value",
     caption = "Data from the BRFSS"
   ) + 
+  viridis::scale_color_viridis(name = "Location",
+                               discrete = TRUE) +
   theme(legend.position = "right")
 ```
+
+
+
+
+
+
+
+
+
 
 
 ```{r}

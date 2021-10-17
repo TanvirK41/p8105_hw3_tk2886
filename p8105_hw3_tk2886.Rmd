@@ -118,7 +118,8 @@ behavorial_df <-
   brfss_smart2010 %>% 
   janitor::clean_names() %>%
   filter(topic == "Overall Health") %>%
-  mutate(response = forcats::fct_relevel(response, c("Poor", "Fair", "Good", "Very good", "Excellent")))
+  filter(response %in% c("Poor", "Fair", "Good", "Very good", "Excellent")) %>%
+  mutate(reponse = as.factor(response) %>% fct_relevel("Poor", "Fair", "Good", "Very good", "Excellent"))
 ```
 
 Analyzing 2002 for which states observed at 7 or more locations
@@ -128,7 +129,7 @@ behavorial_df %>%
   group_by(locationabbr) %>%
   summarise(location_count = n_distinct(locationdesc)) %>%
   filter(location_count >= 7) %>%
-  arrange(desc(location_count))
+  arrange(location_count)
 ```
 
 
@@ -139,7 +140,7 @@ behavorial_df %>%
   group_by(locationabbr) %>%
   summarise(location_count = n_distinct(locationdesc)) %>%
   filter(location_count >= 7) %>%
-  arrange(desc(location_count))
+  arrange(location_count)
 ```
 
 
@@ -174,12 +175,21 @@ behavorial_df %>%
 ```
 
 
+
+
+
 #Question 3
 ```{r}
 accel_dfa <- 
   read_csv("./data/accel_data.csv") %>%
   janitor::clean_names() 
+```
 
+
+
+
+
+```{r}
 new_accel_df <-
   accel_dfa %>%
   pivot_longer(
@@ -198,6 +208,7 @@ new_accel_df <-
            day %in% c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday") ~ "Weekday", 
            day %in% c("Saturday", "Sunday") ~ "Weekend")) 
 ```
+
 
 
 ```{r}
@@ -232,7 +243,7 @@ new_accel_df %>%
     title = "Analysis of 24-hour Activity Per Day",
     x = "Hour in a Day (0 Hour - 24 hour)",
     y = "Total Activity Counts for Each Hour",
-    caption = "Data From: Advanced Cardiac Care Center of Columbia University Medical Center")
+    caption = "Data From: Advanced Cardiac Care Center of Columbia University Medical Center") + 
   scale_x_continuous(
     breaks = c(0, 240, 480, 720, 960, 1200, 1440),
     labels = c("0hr", "4hr", "8hr", "12hr", "16hr", "20hr", "24hr"))

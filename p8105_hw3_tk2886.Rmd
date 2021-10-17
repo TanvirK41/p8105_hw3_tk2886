@@ -169,6 +169,63 @@ behavorial_df %>%
   facet_grid(~ year)
 ```
 
+#Question 3
+
+
+```{r}
+accel_dfa <- 
+  read_csv("./data/accel_data.csv") %>%
+  janitor::clean_names() %>%
+  pivot_longer(
+    activity_1:activity_1440,
+    names_to = "minute",
+    names_prefix = "activity_",
+    values_to = "activity_counts") %>%
+  mutate(
+    week = as.integer(week), 
+    day_id = as.integer(day_id), 
+    minute = as.integer(minute),
+    hour = as.integer(minute %/% 60), 
+    day = factor(day, levels = c("Sunday","Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")),
+    weekday_vs_weekend = case_when(
+           day %in% c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday") ~ "Weekday", 
+           day %in% c("Saturday", "Sunday") ~ "Weekend"))
+
+view(accel_dfa)
+```
+
+
+Part 2
+```{r}
+accel_dfa %>%
+  group_by(day_id) %>%
+  summarize(total_activity = sum(activity_counts, na.rm = TRUE)) %>%
+  knitr::kable()
+```
+
+
+Part 3
+```{r}
+accel_dfa %>%
+  group_by(week, day, hour) %>%
+  summarise(activity_perhr = sum(activity_counts, na.rm = TRUE)) %>%
+  ggplot(aes(x = hour, activity_perhr)) +
+  geom_point(aes(color = day)) +
+  geom_line(aes(color = day)) +
+  labs(
+    title = "Analysis of 24-hour Activity Per Day",
+    x = "Hour in a Day",
+    y = "Total Activity Counts for Each Hour",
+    caption = "Data From: Advanced Cardiac Care Center of Columbia University Medical Center") +
+    scale_x_continuous(
+    breaks = c(0, 4, 8, 12, 16, 20, 24),
+    labels = c("0", "4", "8", "12", "16", "20", "24")) +
+    scale_y_continuous(
+    breaks = c(0, 10000, 20000, 40000, 60000, 80000, 100000, 120000),
+    labels = c("0", "10000", "20000", "40000", "60000", "80000", "100000", "120000")
+  ) 
+  
+```
 
 
 

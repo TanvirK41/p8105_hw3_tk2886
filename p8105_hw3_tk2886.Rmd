@@ -11,6 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(patchwork)
 library(p8105.datasets)
+library(ggridges)
 
 ## Set Global Options 
 knitr::opts_chunk$set(
@@ -86,7 +87,7 @@ instacart_df %>%
   group_by(aisle, product_name) %>%
   summarise(Product_Quantity = n()) %>%
   filter(min_rank(desc(Product_Quantity)) < 4) %>%
-  arrange(aisle, desc(Product_Quantity))
+  arrange(aisle, desc(Product_Quantity)) 
 ```
 
 
@@ -160,32 +161,13 @@ behavorial_df %>%
 
 Making a two-panel plot showing, for the years 2006, and 2010, distribution of data_value for responses (“Poor” to “Excellent”) among locations in NY State
 ```{r}
-
+behavorial_df %>%
+  filter(year %in% c("2006", "2010"),
+         locationabbr %in% c("NY")) %>%
+  ggplot(aes(x = data_value, y = response)) + 
+  geom_density_ridges(scale = .85) +
+  facet_grid(~ year)
 ```
-
-
-#Question 3
-```{r}
-accelerometer_df <-
-  read_csv("./data/accel_data.csv") %>%
-  janitor::clean_names() %>%
-  mutate(
-    week = as.integer(week), 
-    day_id = as.integer(day_id),
-    day = factor(day, levels = c("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")), 
-    weekday_vs_weekend = case_when(
-           day %in% c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday") ~ "Weekday", 
-           day %in% c("Saturday", "Sunday") ~ "Weekend"))
-
-
-accelerometer_df
-
-```
-
-
-
-
-
 
 
 

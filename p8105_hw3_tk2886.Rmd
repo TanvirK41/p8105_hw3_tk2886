@@ -32,8 +32,7 @@ scale_fill_discrete = scale_fill_viridis_d
 ```
 
 # QUESTION 1
-
-Loading the instacart data and cleaning the instacart data
+### Loading the instacart data and cleaning the instacart data
 ```{r}
 data("instacart")
 
@@ -42,7 +41,7 @@ instacart_df <-
   janitor::clean_names()
 ```
 
-Analysis of instacart data
+### Analysis of instacart data
 ```{r}
 dimension_instacart = dim(instacart_df)
 instacart_row = nrow(instacart_df)
@@ -52,7 +51,7 @@ key_variables = names(instacart_df)
 The dimension of the *instacart dataframe* is **`r dimension_instacart`**. The dimensions represents the number of rows and the columns. The number of *rows* in the instacart dataframe are **`r instacart_row`**. The number of *columns* in the instacart dataframe are **`r instacart_col`**. 
 
 
-Analyzing the Aisle Column/Variable and arranging most aisles with the most items 
+### Analyzing the Aisle column in the dataframe 
 ```{r}
 instacart_df %>%
   group_by(aisle) %>%
@@ -62,7 +61,7 @@ instacart_df %>%
 After analyzing the data frame, there are **134 aisles**. The top five aisles with the most items ordered from are **fresh vegetables**, **fresh fruits**, **packaged vegetables fruits**, **yogurt**, and **packaged cheese**. 
 
 
-Plot that shows the aisles with more than 10000 items ordered from. 
+### Plot that shows the aisles with more than 10000 items ordered from. 
 ```{r}
 instacart_df %>%
   group_by(aisle) %>%
@@ -83,7 +82,7 @@ instacart_df
 ```
 
 
-Creating A table showing the three most popular items in each of the aisles “baking ingredients”, “dog food care”, and “packaged vegetables fruits”.
+### Creating A table showing the three most popular items in each of the aisles “baking ingredients”, “dog food care”, and “packaged vegetables fruits”.
 ```{r results='asis'}
 instacart_df %>%
   filter(aisle %in%  c("baking ingredients", "dog food care", "packaged vegetables fruits")) %>%
@@ -98,7 +97,7 @@ instacart_df %>%
 ```
 
 
-Showing the mean hour of the day at which Pink Lady Apples and Coffee Ice Cream are ordered on each day of the week; format this table for human readers (i.e. produce a 2 x 7 table).
+### Showing the mean hour of the day at which Pink Lady Apples and Coffee Ice Cream are ordered on each day of the week; format this table for human readers (i.e. produce a 2 x 7 table).
 ```{r}
 instacart_df %>%
   mutate(order_dow = recode(order_dow,
@@ -125,7 +124,7 @@ instacart_df %>%
 
 # QUESTION 2
 
-Loading the Data and Cleaning the Data with janitor
+### Loading the brfss_smart2010 data and dleaning the brfss_smart2010 data
 ```{r}
 data("brfss_smart2010")
 
@@ -138,27 +137,29 @@ behavorial_df <-
   mutate(response = forcats::fct_relevel(response, c("Poor", "Fair", "Good", "Very good", "Excellent")))
 ```
 
-Analyzing 2002 for which states observed at 7 or more locations
+### Analyzing 2002 for which states observed at 7 or more locations
 ```{r}
 behavorial_df %>%
   filter(year == 2002) %>%
   group_by(locationabbr) %>%
   summarise(location_count = n_distinct(locationdesc)) %>%
   filter(location_count >= 7) %>%
-  arrange(location_count)
+  arrange(location_count) %>%
+  knitr::kable()
 ```
+In *2002*, **CT**, **FL**, **NC**, **MA**, **NJ**, and **PA** are the five states that were observed at 7 or more locations.  
 
-
-Analyzing 2010 for which states observed at 7 or more locations
+### Analyzing 2010 for which states observed at 7 or more locations
 ```{r}
 behavorial_df %>%
   filter(year == 2010) %>%
   group_by(locationabbr) %>%
   summarise(location_count = n_distinct(locationdesc)) %>%
   filter(location_count >= 7) %>%
-  arrange(location_count)
+  arrange(location_count) %>%
+  knitr::kable()
 ```
-
+In *2010*, **CO**, **PA**, **SC**, **OH**, **MA**, **NY**, **NE**, **WA**, **CA**, **MD**, **NC**, **TX**, **NJ**, **FL** are the 14 states that were observed at 7 or more locations. 
 
 Creating a Spaghetti Plot of the average value over time within a state
 ```{r}

@@ -118,8 +118,9 @@ behavorial_df <-
   brfss_smart2010 %>% 
   janitor::clean_names() %>%
   filter(topic == "Overall Health") %>%
-  filter(response %in% c("Poor", "Fair", "Good", "Very good", "Excellent")) %>%
-  mutate(reponse = as.factor(response) %>% fct_relevel("Poor", "Fair", "Good", "Very good", "Excellent"))
+  filter(response %in% c("Excellent", "Very good", "Good", "Fair", "Poor")) %>% 
+  mutate(response = as.factor(response)) %>%
+  mutate(response = forcats::fct_relevel(response, c("Poor", "Fair", "Good", "Very good", "Excellent")))
 ```
 
 Analyzing 2002 for which states observed at 7 or more locations
@@ -183,6 +184,8 @@ behavorial_df %>%
 accel_dfa <- 
   read_csv("./data/accel_data.csv") %>%
   janitor::clean_names() 
+
+accel_dfa
 ```
 
 
@@ -196,7 +199,7 @@ new_accel_df <-
     activity_1:activity_1440,
     names_to = "minute",
     names_prefix = "activity_",
-    values_to = "activity_counts") %>%
+    values_to = "activity_count") %>%
   mutate(
     week = as.integer(week), 
     day_id = as.integer(day_id), 
@@ -237,7 +240,7 @@ Part 3
 ```{r}
 new_accel_df %>%
   group_by(day, minute) %>%
-  ggplot(aes(x = minute, y = activity_counts, color = day)) +
+  ggplot(aes(x = minute, y = activity_count, color = day)) +
   geom_point() +
   labs(
     title = "Analysis of 24-hour Activity Per Day",

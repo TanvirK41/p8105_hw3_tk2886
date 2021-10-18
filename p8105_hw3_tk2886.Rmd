@@ -7,7 +7,7 @@ output: github_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
+```{r echo = FALSE, message = FALSE}
 library(tidyverse)
 library(patchwork)
 library(p8105.datasets)
@@ -55,8 +55,9 @@ The dimension of the *instacart dataframe* is **`r dimension_instacart`**. The d
 ```{r}
 instacart_df %>%
   group_by(aisle) %>%
-  summarise(n_obs = n()) %>%
-  arrange(desc(n_obs))
+  summarise(quantity_ordered = n()) %>%
+  arrange(desc(quantity_ordered)) %>%
+  knitr::kable()
 ```
 After analyzing the data frame, there are **134 aisles**. The top five aisles with the most items ordered from are **fresh vegetables**, **fresh fruits**, **packaged vegetables fruits**, **yogurt**, and **packaged cheese**. 
 
@@ -137,6 +138,9 @@ behavorial_df <-
   mutate(response = forcats::fct_relevel(response, c("Poor", "Fair", "Good", "Very good", "Excellent")))
 ```
 
+
+
+
 ### Analyzing 2002 for which states observed at 7 or more locations
 ```{r}
 behavorial_df %>%
@@ -148,6 +152,9 @@ behavorial_df %>%
   knitr::kable()
 ```
 In *2002*, **CT**, **FL**, **NC**, **MA**, **NJ**, and **PA** are the five states that were observed at 7 or more locations.  
+
+
+
 
 ### Analyzing 2010 for which states observed at 7 or more locations
 ```{r}
@@ -161,7 +168,10 @@ behavorial_df %>%
 ```
 In *2010*, **CO**, **PA**, **SC**, **OH**, **MA**, **NY**, **NE**, **WA**, **CA**, **MD**, **NC**, **TX**, **NJ**, **FL** are the 14 states that were observed at 7 or more locations. 
 
-Creating a Spaghetti Plot of the average value over time within a state
+
+
+
+### Creating a Spaghetti Plot of the average value over time within a state
 ```{r}
 behavorial_df %>%
   filter(response == "Excellent") %>%

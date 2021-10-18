@@ -263,7 +263,7 @@ Both the original accelerometer dataset that was provided and the cleaned and ti
 
 The original dataset that was provided to us has the *dimension* of **`r original_accel_df`**. We may be more specific and state that the number of *rows* in the original dataset is **`r original_accel_row`**. The number of *cols* in the original data is **`r original_accel_col`**. 
 
-
+The tidied data set that I created has *dimensions* of **`r accel_dim`**. The *key variables* in this tidied dataset are **`r key_var`**. The number of *rows* in this tidied dataset are **`r accel_row`**. The number of *columns* in this tidied dataset are **`r accel_col`**. 
 
 
 ### A table that shows the total activity count for each day of the week 
@@ -275,7 +275,7 @@ new_accel_df %>%
       "**Table 1: Total Activity Count for each day (Sunday-Saturday)**"
   )
 ```
-
+**Analysis of Table 1:** One trend that is shown is that towards end of the each week, Wednesday, Thursday, and Friday, the activity count is higher compared to other days. 
 
 Part 3
 ```{r}

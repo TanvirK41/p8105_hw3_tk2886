@@ -78,8 +78,6 @@ instacart_df %>%
   ) + 
   coord_flip() +
   theme(axis.text.y = element_text(size = 7))
-
-instacart_df
 ```
 
 
@@ -191,7 +189,7 @@ behavorial_df %>%
 ```
 
 
-Making a two-panel plot showing, for the years 2006, and 2010, distribution of data_value for responses (“Poor” to “Excellent”) among locations in NY State
+### Making a two-panel plot showing, for the years 2006, and 2010, distribution of data_value for responses (“Poor” to “Excellent”) among locations in NY State
 ```{r}
 behavorial_df %>%
   filter(year %in% c("2006", "2010"),
@@ -216,18 +214,18 @@ behavorial_df %>%
 
 
 #Question 3
+
+### Loading the Original Data and saving this and comparing this data to the new tidied data
 ```{r}
 accel_dfa <- 
   read_csv("./data/accel_data.csv") %>%
   janitor::clean_names() 
-
-accel_dfa
 ```
 
 
 
 
-
+### Clean and Tidying the data 
 ```{r}
 new_accel_df <-
   accel_dfa %>%
@@ -250,6 +248,7 @@ new_accel_df <-
 
 
 
+### Analyzing the accelerometer data
 ```{r}
 original_accel_df = accel_dfa %>% dim()
 original_accel_row = accel_dfa %>% nrow()
@@ -260,15 +259,21 @@ accel_dim = new_accel_df %>% dim()
 accel_row = new_accel_df %>% nrow()
 accel_col = new_accel_df %>% ncol()
 ```
-Both the original accelerometer data frame that was provided and the cleaned and tidy version that is created fro that specific data frame represents data for one person and this data measures “activity counts” in a short period; one-minute intervals. There is not 50,400.
+Both the original accelerometer dataset that was provided and the cleaned and tidy version that is created from that specific data frame represents data for one person. This dataset shows the collected measures of  “activity counts” in a short period; one-minute intervals. There is not 50,400 different people or objects or entity but rather the 50,400 represents the 50,400 minutes that was logged in by that one person. That male individual was observed and measured for 35 days by using the accelerometer. The information that was provided with the dataset states that the activity counts for each minute of a 24 hour day starting at midnight which means we have data for the whole day instead of specific time of the day. We may also divide 50,400 by 1440 (1440 minutes equals to one day) which equals to 35 days which is the number of days that the male individual was observed for. 
+
+The original dataset that was provided to us has the *dimension* of **`r original_accel_df`**. We may be more specific and state that the number of *rows* in the original dataset is **`r original_accel_row`**. The number of *cols* in the original data is **`r original_accel_col`**. 
 
 
-Part 2
+
+
+### A table that shows the total activity count for each day of the week 
 ```{r}
 new_accel_df %>%
   group_by(day) %>%
   summarize(total_activity = sum(activity_count, na.rm = TRUE)) %>%
-  knitr::kable()
+  knitr::kable(caption = 
+      "**Table 1: Total Activity Count for each day (Sunday-Saturday)**"
+  )
 ```
 
 

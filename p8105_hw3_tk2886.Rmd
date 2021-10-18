@@ -31,6 +31,9 @@ scale_colour_discrete = scale_colour_viridis_d
 scale_fill_discrete = scale_fill_viridis_d
 ```
 
+
+
+
 # QUESTION 1
 ### Loading the instacart data and cleaning the instacart data
 ```{r}
@@ -40,6 +43,9 @@ instacart_df <-
   instacart %>% 
   janitor::clean_names()
 ```
+
+
+
 
 ### Analysis of instacart data
 ```{r}
@@ -51,6 +57,8 @@ key_variables = names(instacart_df)
 The dimension of the *instacart dataframe* is **`r dimension_instacart`**. The dimensions represents the number of rows and the columns. The number of *rows* in the instacart dataframe are **`r instacart_row`**. The number of *columns* in the instacart dataframe are **`r instacart_col`**. 
 
 
+
+
 ### Analyzing the Aisle column in the dataframe 
 ```{r}
 instacart_df %>%
@@ -60,6 +68,8 @@ instacart_df %>%
   knitr::kable()
 ```
 After analyzing the data frame, there are **134 aisles**. The top five aisles with the most items ordered from are **fresh vegetables**, **fresh fruits**, **packaged vegetables fruits**, **yogurt**, and **packaged cheese**. 
+
+
 
 
 ### Plot that shows the aisles with more than 10000 items ordered from. 
@@ -81,6 +91,8 @@ instacart_df %>%
 ```
 
 
+
+
 ### Creating A table showing the three most popular items in each of the aisles “baking ingredients”, “dog food care”, and “packaged vegetables fruits”.
 ```{r results='asis'}
 instacart_df %>%
@@ -94,6 +106,8 @@ instacart_df %>%
       "**Table 1: Three Most Popular items in Baking Ingredients Aisle, Dog Food Care Aisle, and Packaged Vegetables Fruits aisle**" 
                  )
 ```
+
+
 
 
 ### Showing the mean hour of the day at which Pink Lady Apples and Coffee Ice Cream are ordered on each day of the week; format this table for human readers (i.e. produce a 2 x 7 table).
@@ -189,6 +203,8 @@ behavorial_df %>%
 ```
 
 
+
+
 ### Making a two-panel plot showing, for the years 2006, and 2010, distribution of data_value for responses (“Poor” to “Excellent”) among locations in NY State
 ```{r}
 behavorial_df %>%
@@ -198,6 +214,8 @@ behavorial_df %>%
   geom_density_ridges(scale = .85) +
   facet_grid(~ year)
 ```
+
+
 
 
 ```{r}
@@ -266,6 +284,8 @@ The original dataset that was provided to us has the *dimension* of **`r origina
 The tidied data set that I created has *dimensions* of **`r accel_dim`**. The *key variables* in this tidied dataset are **`r key_var`**. The number of *rows* in this tidied dataset are **`r accel_row`**. The number of *columns* in this tidied dataset are **`r accel_col`**. 
 
 
+
+
 ### A table that shows the total activity count for each day of the week 
 ```{r}
 new_accel_df %>%
@@ -276,6 +296,9 @@ new_accel_df %>%
   )
 ```
 **Analysis of Table 1:** One trend that is shown is that towards end of the each week, Wednesday, Thursday, and Friday, the activity count is higher compared to other days. 
+
+
+
 
 Part 3
 ```{r}

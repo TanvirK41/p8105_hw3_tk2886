@@ -230,8 +230,8 @@ Both the original accelerometer data frame that was provided and the cleaned and
 Part 2
 ```{r}
 new_accel_df %>%
-  group_by(day_id, day) %>%
-  summarize(total_activity = sum(activity_counts, na.rm = TRUE)) %>%
+  group_by(day) %>%
+  summarize(total_activity = sum(activity_count, na.rm = TRUE)) %>%
   knitr::kable()
 ```
 

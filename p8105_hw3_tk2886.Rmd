@@ -136,7 +136,6 @@ instacart_df %>%
 
 
 # QUESTION 2
-
 ### Loading the brfss_smart2010 data and dleaning the brfss_smart2010 data
 ```{r}
 data("brfss_smart2010")
@@ -210,6 +209,7 @@ behavorial_df %>%
 behavorial_df %>%
   filter(year %in% c("2006", "2010"),
          locationabbr %in% c("NY")) %>%
+  group_by(locationdesc) %>%
   ggplot(aes(x = data_value, y = response)) + 
   geom_density_ridges(scale = .85) +
   facet_grid(~ year)
@@ -218,17 +218,16 @@ behavorial_df %>%
 
 
 
+
 ```{r}
 behavorial_df %>%
   filter(year %in% c("2006", "2010"),
          locationabbr %in% c("NY")) %>%
-  ggplot(aes(x = data_value, y = response, color = locationdesc)) + 
-  geom_line() +
-  geom_point() +
+  group_by(locationdesc) %>%
+  ggplot(aes(x = data_value, y = response)) + 
+  geom_density_ridges(scale = .85) +
   facet_grid(~ year)
 ```
-
-
 
 
 #Question 3

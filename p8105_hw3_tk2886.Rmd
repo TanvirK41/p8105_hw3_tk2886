@@ -280,21 +280,28 @@ new_accel_df <-
            day %in% c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday") ~ "Weekday", 
            day %in% c("Saturday", "Sunday") ~ "Weekend")) 
 ```
-Both the original accelerometer dataset that was provided and the cleaned and tidy version that is created from that specific data frame represents data for one person. This dataset shows the collected measures of  “activity counts” in a short period; one-minute intervals. There is not 50,400 different people or objects or entity but rather the 50,400 represents the 50,400 minutes that was logged in by that one person. That male individual was observed and measured for 35 days by using the accelerometer. The information that was provided with the dataset states that the activity counts for each minute of a 24 hour day starting at midnight which means we have data for the whole day instead of specific time of the day. We may also divide 50,400 by 1440 (1440 minutes equals to one day) which equals to 35 days which is the number of days that the male individual was observed for. 
+Both the original accelerometer dataset that was provided and the cleaned and tidy version that is created from that specific data frame represents data for one person. This dataset shows the collected measures of  “activity counts” in a short period; one-minute intervals. There is not 50,400 different people or objects or entity but rather the 50,400 represents the 50,400 minutes that was logged in by that one person. That male individual was observed and measured for 35 days by using an accelerometer. The information that was provided with the dataset states that the activity counts for each minute of a 24 hour day starting at midnight which means we have data for the whole day instead of specific time of the day. We may also divide 50,400 by 1440 (1440 minutes equals to one day) which equals to 35 days which is the number of days that the male individual was observed for. 
 
 
 
 
 ### Analyzing the accelerometer data
 ```{r}
-original_accel_df = accel_dfa %>% dim()
-original_accel_row = accel_dfa %>% nrow()
-original_accel_col = accel_dfa %>% ncol()
+original_accel_df = 
+  accel_dfa %>% dim()
+original_accel_row = 
+  accel_dfa %>% nrow()
+original_accel_col = 
+  accel_dfa %>% ncol()
 
-key_var = new_accel_df %>% names()
-accel_dim = new_accel_df %>% dim()
-accel_row = new_accel_df %>% nrow()
-accel_col = new_accel_df %>% ncol()
+key_var = 
+  new_accel_df %>% names()
+accel_dim = 
+  new_accel_df %>% dim()
+accel_row = 
+  new_accel_df %>% nrow()
+accel_col = 
+  new_accel_df %>% ncol()
 ```
 The original dataset that was provided to us has the *dimension* of **`r original_accel_df`**. We may be more specific and state that the number of *rows* in the original dataset is **`r original_accel_row`**. The number of *cols* in the original data is **`r original_accel_col`**. 
 
@@ -321,7 +328,9 @@ Part 3
 ```{r}
 new_accel_df %>%
   group_by(day, minute) %>%
-  ggplot(aes(x = minute, y = activity_count, color = day)) +
+  ggplot(aes(x = minute, 
+             y = activity_count, 
+             color = day)) +
   geom_point() +
   labs(
     title = "Analysis of 24-hour Activity Per Day",
@@ -330,6 +339,7 @@ new_accel_df %>%
     caption = "Data From: Advanced Cardiac Care Center of Columbia University Medical Center") + 
   scale_x_continuous(
     breaks = c(0, 240, 480, 720, 960, 1200, 1440),
-    labels = c("0hr", "4hr", "8hr", "12hr", "16hr", "20hr", "24hr"))
+    labels = c("0hr", "4hr", "8hr", "12hr", "16hr", "20hr", "24hr")) +
+  theme(legend.position = "right")
 ```
-
+**Analysis of Graph 1:** One trend that is indicated from the graph is that the activity count is higher later on night on Thursday, Friday, Saturday. Earlier in the week like Sunday and Monday, the activity count is higher in the late morning hours to afternoon (12pm) hour. 

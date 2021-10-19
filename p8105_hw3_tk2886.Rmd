@@ -9,7 +9,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ```{r echo = FALSE, message = FALSE}
 library(tidyverse)
-library(patchwork)
 library(p8105.datasets)
 library(ggridges)
 
@@ -43,16 +42,16 @@ instacart_df <-
   instacart %>% 
   janitor::clean_names()
 ```
-
+This information was gathered from the p8105 website. It is indicated that Instacart is an online grocery service that allows people to shop online from local stores. In New York City, some of the partner stores include Whole Foods, Fairway, and The Food Emporium. “The Instacart Online Grocery Shopping Dataset 2017” is an anonymized dataset with over 3 million online grocery orders from more than 200,000 Instacart users. We will be using this dataset to analyze specific things and outputting the results in a table or visual plots. 
 
 
 
 ### Analysis of instacart data
 ```{r}
-dimension_instacart = dim(instacart_df)
-instacart_row = nrow(instacart_df)
-instacart_col = ncol(instacart_df)
-key_variables = names(instacart_df)
+dimension_instacart = instacart_df %>% dim()
+instacart_row = instacart_df %>% nrow()
+instacart_col = instacart_df %>% ncol()
+key_variables = instacart_df %>% names()
 ```
 The dimension of the *instacart dataframe* is **`r dimension_instacart`**. The dimensions represents the number of rows and the columns. The number of *rows* in the instacart dataframe are **`r instacart_row`**. The number of *columns* in the instacart dataframe are **`r instacart_col`**. 
 
@@ -81,7 +80,7 @@ instacart_df %>%
   ggplot(aes(x = reorder(aisle, aisle_n), y = aisle_n)) +
   geom_bar(stat = "identity") + 
   labs(
-    title = "Number of items ordered in each Aisle",
+    title = "Number of items ordered in each Aisles from Aisles with 10K orders",
     x = "Aisle Identification",
     y = "Quantitiy purchased from each Aisle",
     caption = "Data from the Instacart package"
@@ -89,7 +88,7 @@ instacart_df %>%
   coord_flip() +
   theme(axis.text.y = element_text(size = 7))
 ```
-
+This plot shows the number of items ordered in each Aisle from the Aisles that have more than 10,000 products ordered. The top five aisles from the aisles with more than 10,000 items ordered that have most items ordered are Fresh Vegetables, Fresh Fruits, Packaged vegetable fruits, yogurts, and packaged cheese. 
 
 
 
@@ -103,10 +102,10 @@ instacart_df %>%
   arrange(aisle, desc(Product_Quantity)) %>%
   knitr::kable(
     caption = 
-      "**Table 1: Three Most Popular items in Baking Ingredients Aisle, Dog Food Care Aisle, and Packaged Vegetables Fruits aisle**" 
-                 )
+      "**Table 1: Three Most Popular items in Baking Ingredients Aisle, Dog Food Care Aisle, and Packaged Vegetables Fruits aisle**"
+  ) 
 ```
-
+The most popular product in Baking Ingredients is Light Brown sugar with 499 times ordered. The most popular product in dog food care is Snack sticks chicken & rice recipe dog treats with 30 times ordered. The most popular product in packaged vegetable fruits is organic baby spinach which has been ordered 9,784 times. 
 
 
 
@@ -128,11 +127,16 @@ instacart_df %>%
     names_from = order_dow, 
     values_from = mean_hour
   ) %>%
+  select(product_name, Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, everything()) %>%
   knitr::kable(
+    digits = 1, 
     caption = 
-      "**Table 2: Mean Hour of the day at which Pink Lady Apples and Coffee Icre Cream are ordered eady day**" 
+      "**Table 2: Mean Hour of the day at which Pink Lady Apples and Coffee Icre Cream are ordered eady day of the week**" 
   )
 ```
+Based on table 2, **Coffee Ice Cream** is ordered latest on *Tuesday*, while **Pink Lady Apples** is ordered latest on on *Wednesday*. Between Coffee Ice Cream and Pink Lady Apples, **Pink Lady Apples** are ordered earlier in the day out of the 6 of the 7 days. Friday is the only day when **Coffee Ice Cream** is ordered earlier in the day. 
+
+
 
 
 # QUESTION 2
@@ -224,8 +228,8 @@ behavorial_df %>%
   filter(year %in% c("2006", "2010"),
          locationabbr %in% c("NY")) %>%
   group_by(locationdesc) %>%
-  ggplot(aes(x = data_value, y = response)) + 
-  geom_density_ridges(scale = .85) +
+  ggplot(aes(x = data_value, y = response, color = locationdesc)) + 
+  geom_point() +
   facet_grid(~ year)
 ```
 
@@ -262,7 +266,7 @@ new_accel_df <-
            day %in% c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday") ~ "Weekday", 
            day %in% c("Saturday", "Sunday") ~ "Weekend")) 
 ```
-
+Both the original accelerometer dataset that was provided and the cleaned and tidy version that is created from that specific data frame represents data for one person. This dataset shows the collected measures of  “activity counts” in a short period; one-minute intervals. There is not 50,400 different people or objects or entity but rather the 50,400 represents the 50,400 minutes that was logged in by that one person. That male individual was observed and measured for 35 days by using the accelerometer. The information that was provided with the dataset states that the activity counts for each minute of a 24 hour day starting at midnight which means we have data for the whole day instead of specific time of the day. We may also divide 50,400 by 1440 (1440 minutes equals to one day) which equals to 35 days which is the number of days that the male individual was observed for. 
 
 
 ### Analyzing the accelerometer data
@@ -276,8 +280,6 @@ accel_dim = new_accel_df %>% dim()
 accel_row = new_accel_df %>% nrow()
 accel_col = new_accel_df %>% ncol()
 ```
-Both the original accelerometer dataset that was provided and the cleaned and tidy version that is created from that specific data frame represents data for one person. This dataset shows the collected measures of  “activity counts” in a short period; one-minute intervals. There is not 50,400 different people or objects or entity but rather the 50,400 represents the 50,400 minutes that was logged in by that one person. That male individual was observed and measured for 35 days by using the accelerometer. The information that was provided with the dataset states that the activity counts for each minute of a 24 hour day starting at midnight which means we have data for the whole day instead of specific time of the day. We may also divide 50,400 by 1440 (1440 minutes equals to one day) which equals to 35 days which is the number of days that the male individual was observed for. 
-
 The original dataset that was provided to us has the *dimension* of **`r original_accel_df`**. We may be more specific and state that the number of *rows* in the original dataset is **`r original_accel_row`**. The number of *cols* in the original data is **`r original_accel_col`**. 
 
 The tidied data set that I created has *dimensions* of **`r accel_dim`**. The *key variables* in this tidied dataset are **`r key_var`**. The number of *rows* in this tidied dataset are **`r accel_row`**. The number of *columns* in this tidied dataset are **`r accel_col`**. 

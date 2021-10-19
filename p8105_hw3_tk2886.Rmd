@@ -1,5 +1,7 @@
 ---
 title: "p8105_hw3_tk2886"
+author: "Tanvir Khan"
+date: 2021-10-21
 output: github_document
 ---
 

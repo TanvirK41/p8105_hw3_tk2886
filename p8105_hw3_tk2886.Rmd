@@ -50,10 +50,21 @@ This information was gathered from the p8105 website. It is indicated that Insta
 
 ### Analysis of instacart data
 ```{r}
-dimension_instacart = instacart_df %>% dim()
-instacart_row = instacart_df %>% nrow()
-instacart_col = instacart_df %>% ncol()
-key_variables = instacart_df %>% names()
+dimension_instacart = 
+  instacart_df %>% 
+  dim()
+
+instacart_row = 
+  instacart_df %>% 
+  nrow()
+
+instacart_col = 
+  instacart_df %>% 
+  ncol()
+
+key_variables = 
+  instacart_df %>% 
+  names()
 ```
 The dimension of the *instacart dataframe* is **`r dimension_instacart`**. The dimensions represents the number of rows and the columns. The number of *rows* in the instacart dataframe are **`r instacart_row`**. The number of *columns* in the instacart dataframe are **`r instacart_col`**. 
 
@@ -68,7 +79,7 @@ instacart_df %>%
   arrange(desc(quantity_ordered)) %>%
   knitr::kable()
 ```
-After analyzing the data frame, there are **134 aisles**. The top five aisles with the most items ordered from are **fresh vegetables**, **fresh fruits**, **packaged vegetables fruits**, **yogurt**, and **packaged cheese**. 
+After analyzing the dataset, there are **134 aisles**. The top five aisles with the most items ordered from are **fresh vegetables**, **fresh fruits**, **packaged vegetables fruits**, **yogurt**, and **packaged cheese**. 
 
 
 
@@ -82,7 +93,8 @@ instacart_df %>%
   ggplot(aes(x = reorder(aisle, aisle_n), y = aisle_n)) +
   geom_bar(stat = "identity") + 
   labs(
-    title = "Number of items ordered in each Aisles from Aisles with 10K orders",
+    title = "Number of items ordered in each Aisles",
+    subtitle = "From from Aisles with 10K orders", 
     x = "Aisle Identification",
     y = "Quantitiy purchased from each Aisle",
     caption = "Data from the Instacart package"
@@ -95,7 +107,7 @@ This plot shows the number of items ordered in each Aisle from the Aisles that h
 
 
 ### Creating A table showing the three most popular items in each of the aisles “baking ingredients”, “dog food care”, and “packaged vegetables fruits”.
-```{r results='asis'}
+```{r results='asis', message = FALSE}
 instacart_df %>%
   filter(aisle %in%  c("baking ingredients", "dog food care", "packaged vegetables fruits")) %>%
   group_by(aisle, product_name) %>%
@@ -112,7 +124,7 @@ The most popular product in Baking Ingredients is Light Brown sugar with 499 tim
 
 
 ### Showing the mean hour of the day at which Pink Lady Apples and Coffee Ice Cream are ordered on each day of the week; format this table for human readers (i.e. produce a 2 x 7 table).
-```{r}
+```{r message = FALSE}
 instacart_df %>%
   mutate(order_dow = recode(order_dow,
                             '0' = 'Sunday',
@@ -189,7 +201,7 @@ In *2010*, **CO**, **PA**, **SC**, **OH**, **MA**, **NY**, **NE**, **WA**, **CA*
 
 
 ### Creating a Spaghetti Plot of the average value over time within a state
-```{r}
+```{r message = FALSE}
 behavorial_df %>%
   filter(response == "Excellent") %>%
   group_by(year, locationabbr) %>%
@@ -197,13 +209,11 @@ behavorial_df %>%
   ggplot(aes(x = year, y = mean_data_value, color = locationabbr)) +
   geom_line(aes(group = locationabbr)) +
   labs(
-    title = "Average Value throughout the year ",
+    title = "Average data value over time within a state",
     x = "Year",
-    y = "Average Value",
-    caption = "Data from the BRFSS"
+    y = "Average Data Value",
+    caption = "Data from the BRFSS dataset"
   ) + 
-  viridis::scale_color_viridis(name = "Location",
-                               discrete = TRUE) +
   theme(legend.position = "right")
 ```
 

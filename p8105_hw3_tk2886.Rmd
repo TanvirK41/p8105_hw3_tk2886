@@ -217,6 +217,7 @@ behavorial_df %>%
   theme(legend.position = "right")
 ```
 
+After analyzing this spaghetti plot, it is shown that the average data_avalue of the places within the states varies from 2002 to 2010. 
 
 
 
@@ -234,7 +235,6 @@ behavorial_df %>%
 
 
 
-
 ```{r}
 behavorial_df %>%
   filter(year %in% c("2006", "2010"),
@@ -246,7 +246,9 @@ behavorial_df %>%
 ```
 
 
-#Question 3
+
+
+# Question 3
 
 ### Loading the Original Data and saving this and comparing this data to the new tidied data
 ```{r}
@@ -279,6 +281,8 @@ new_accel_df <-
            day %in% c("Saturday", "Sunday") ~ "Weekend")) 
 ```
 Both the original accelerometer dataset that was provided and the cleaned and tidy version that is created from that specific data frame represents data for one person. This dataset shows the collected measures of  “activity counts” in a short period; one-minute intervals. There is not 50,400 different people or objects or entity but rather the 50,400 represents the 50,400 minutes that was logged in by that one person. That male individual was observed and measured for 35 days by using the accelerometer. The information that was provided with the dataset states that the activity counts for each minute of a 24 hour day starting at midnight which means we have data for the whole day instead of specific time of the day. We may also divide 50,400 by 1440 (1440 minutes equals to one day) which equals to 35 days which is the number of days that the male individual was observed for. 
+
+
 
 
 ### Analyzing the accelerometer data

@@ -187,34 +187,44 @@ behavorial_df <-
 
 
 
-### Analyzing 2002 for which states observed at 7 or more locations
+### Analyzing which states for 2002 observed at 7 or more locations
 ```{r}
-behavorial_df %>%
+bhdf_2002 <- 
+  behavorial_df %>%
   rename(States = locationabbr) %>%
   filter(year == 2002) %>%
   group_by(States) %>%
   summarise(location_count = n_distinct(locationdesc)) %>%
   filter(location_count >= 7) %>%
-  arrange(location_count) %>%
-  knitr::kable()
+  arrange(location_count)
+
+bhdf_2002 %>% knitr::kable()
+
+states_2002 <- 
+  bhdf_2002 %>% pull(States)
 ```
-In *2002*, **CT**, **FL**, **NC**, **MA**, **NJ**, and **PA** are the five states that were observed at 7 or more locations.  
+In *2002*, **`r states_2002`** are the five states that were observed at 7 or more locations.  
 
 
 
 
-### Analyzing 2010 for which states observed at 7 or more locations
+### Analyzing which states for 2010 observed at 7 or more locations
 ```{r}
-behavorial_df %>%
+bhdf_2010 <- 
+  behavorial_df %>%
   rename(States = locationabbr) %>%
   filter(year == 2010) %>%
   group_by(States) %>%
   summarise(location_count = n_distinct(locationdesc)) %>%
   filter(location_count >= 7) %>%
-  arrange(location_count) %>%
-  knitr::kable()
+  arrange(location_count) 
+
+bhdf_2010 %>% knitr::kable()
+
+states_2010 <- 
+  bhdf_2010 %>% pull(States)
 ```
-In *2010*, **CO**, **PA**, **SC**, **OH**, **MA**, **NY**, **NE**, **WA**, **CA**, **MD**, **NC**, **TX**, **NJ**, **FL** are the 14 states that were observed at 7 or more locations. 
+In *2010*, **`r states_2010`** are the 14 states that were observed at 7 or more locations. 
 
 
 

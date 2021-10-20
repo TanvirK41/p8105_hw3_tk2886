@@ -111,7 +111,7 @@ instacart_df %>%
     title = "Number of items ordered in each Aisles",
     subtitle = "From Aisles with 10K orders", 
     x = "Aisle Name",
-    y = "Number of items",
+    y = "Number of items ordered",
     caption = "Data from the Instacart package"
   ) + 
   coord_flip() +
@@ -132,9 +132,10 @@ instacart_df %>%
   arrange(aisle, desc(Product_Quantity)) %>%
   knitr::kable(
     caption = 
-      "**Table 1: Three Most Popular items in Baking Ingredients Aisle, Dog Food Care Aisle, and Packaged Vegetables Fruits aisle**"
+      "**Table 1: Showcasing the Three Most Popular items in Baking Ingredients Aisle, Dog Food Care Aisle, and Packaged Vegetables Fruits aisle**"
   ) 
 ```
+
 The most popular product in Baking Ingredients is Light Brown sugar with 499 times ordered. The most popular product in dog food care is Snack sticks chicken & rice recipe dog treats with 30 times ordered. The most popular product in packaged vegetable fruits is organic baby spinach which has been ordered 9,784 times. 
 
 
@@ -164,7 +165,7 @@ instacart_df %>%
       "**Table 2: Mean Hour of the day at which Pink Lady Apples and Coffee Icre Cream are ordered eady day of the week**" 
   )
 ```
-Based on table 2, **Coffee Ice Cream** is ordered latest on *Tuesday*, while **Pink Lady Apples** is ordered latest on on *Wednesday*. Between Coffee Ice Cream and Pink Lady Apples, **Pink Lady Apples** are ordered earlier in the day out of the 6 of the 7 days. Friday is the only day when **Coffee Ice Cream** is ordered earlier in the day. 
+Table 2 shows the mean hour of the day at which Pink Lady Apples and Coffee Ice Cream are ordered on each day of the week. **Coffee Ice Cream** is ordered latest on *Tuesday*, while **Pink Lady Apples** is ordered latest on *Wednesday*. Between Coffee Ice Cream and Pink Lady Apples, **Pink Lady Apples** are ordered earlier in the day out of the 6 of the 7 days. Friday is the only day when **Coffee Ice Cream** is ordered earlier in the day. 
 
 
 
@@ -233,7 +234,7 @@ behavorial_df %>%
   theme(legend.position = "right")
 ```
 
-After analyzing this spaghetti plot, it is shown that the average data_avalue of the places within the states varies from 2002 to 2010. 
+The spaghetti plot is showing the average data value of the places within the states varies from 2002 to 2010. The data values varies from 2002 to 2010 for the states. 
 
 
 
@@ -243,7 +244,7 @@ behavorial_df %>%
   filter(year %in% c("2006", "2010"),
          locationabbr %in% c("NY")) %>%
   group_by(locationdesc) %>%
-  ggplot(aes(x = response, y = data_value, color = locationdesc)) +
+  ggplot(aes(x = response, y = data_value)) +
   geom_boxplot() +
   facet_grid(. ~ year)
 ```

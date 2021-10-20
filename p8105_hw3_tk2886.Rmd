@@ -220,18 +220,21 @@ In *2010*, **CO**, **PA**, **SC**, **OH**, **MA**, **NY**, **NE**, **WA**, **CA*
 ### Creating a Spaghetti Plot of the average value over time within a state
 ```{r message = FALSE}
 behavorial_df %>%
+  rename(States = locationabbr) %>%
   filter(response == "Excellent") %>%
-  group_by(year, locationabbr) %>%
+  group_by(year, States) %>%
   summarise(mean_data_value = mean(data_value, na.rm = TRUE)) %>%
-  ggplot(aes(x = year, y = mean_data_value, color = locationabbr)) +
-  geom_line(aes(group = locationabbr)) +
+  ggplot(aes(x = year, y = mean_data_value, color = States)) +
+  geom_line(aes(group = States)) +
   labs(
     title = "Average data value over time within a state",
     x = "Year",
     y = "Average Data Value",
     caption = "Data from the BRFSS dataset"
   ) + 
-  theme(legend.position = "right")
+  theme(legend.position = "right",
+        legend.title = element_text(size = 9, face = "bold"),
+        legend.key.size = unit(0.3, 'cm'))
 ```
 
 The spaghetti plot is showing the average data value of the places within the states varies from 2002 to 2010. The data values varies from 2002 to 2010 for the states. 
@@ -346,4 +349,6 @@ new_accel_df %>%
     labels = c("0hr", "4hr", "8hr", "12hr", "16hr", "20hr", "24hr")) +
   theme(legend.position = "right")
 ```
-**Analysis of Graph 1:** One trend that is indicated from the graph is that the activity count is higher later on night on Thursday, Friday, Saturday. Earlier in the week like Sunday and Monday, the activity count is higher in the late morning hours to afternoon (12pm) hour. 
+
+
+**Analysis of** *"Analysis of 24-hour Activity Per Day Plot":* One trend that is indicated from the graph is that the activity count is higher later on night on Thursday, Friday, Saturday. Earlier in the week like Sunday and Monday, the activity count is higher in the late morning hours to afternoon (12pm) hour. 

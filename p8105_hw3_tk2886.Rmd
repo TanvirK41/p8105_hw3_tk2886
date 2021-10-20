@@ -259,11 +259,13 @@ behavorial_df %>%
   filter(year %in% c("2006", "2010"),
          locationabbr %in% c("NY")) %>%
   group_by(locationdesc) %>%
-  ggplot(aes(x = response, y = data_value)) +
+  ggplot(aes(x = response, y = data_value, color = response)) +
   geom_boxplot() +
-  facet_grid(. ~ year)
+  facet_grid(. ~ year) +
+  theme(axis.text.x = element_text(size = 7, face = "bold")) 
 ```
 
+This 2 sided-panel boxplot displays the distribution of data value for responses ("Poor" to "Excellent") among locations in New York State. 
 
 
 

@@ -190,8 +190,9 @@ behavorial_df <-
 ### Analyzing 2002 for which states observed at 7 or more locations
 ```{r}
 behavorial_df %>%
+  rename(States = locationabbr) %>%
   filter(year == 2002) %>%
-  group_by(locationabbr) %>%
+  group_by(States) %>%
   summarise(location_count = n_distinct(locationdesc)) %>%
   filter(location_count >= 7) %>%
   arrange(location_count) %>%
@@ -205,8 +206,9 @@ In *2002*, **CT**, **FL**, **NC**, **MA**, **NJ**, and **PA** are the five state
 ### Analyzing 2010 for which states observed at 7 or more locations
 ```{r}
 behavorial_df %>%
+  rename(States = locationabbr) %>%
   filter(year == 2010) %>%
-  group_by(locationabbr) %>%
+  group_by(States) %>%
   summarise(location_count = n_distinct(locationdesc)) %>%
   filter(location_count >= 7) %>%
   arrange(location_count) %>%
@@ -225,7 +227,7 @@ behavorial_df %>%
   group_by(year, States) %>%
   summarise(mean_data_value = mean(data_value, na.rm = TRUE)) %>%
   ggplot(aes(x = year, y = mean_data_value, color = States)) +
-  geom_line(aes(group = States)) +
+  geom_line(aes(group = States), alpha = 0.4) +
   labs(
     title = "Average data value over time within a state",
     x = "Year",
@@ -237,7 +239,7 @@ behavorial_df %>%
         legend.key.size = unit(0.3, 'cm'))
 ```
 
-The spaghetti plot is showing the average data value of the places within the states varies from 2002 to 2010. The data values varies from 2002 to 2010 for the states. 
+The spaghetti plot is showing the average data value of the places within the states from 2002 to 2010. The data values vary for the states from 2002 to 2010. 
 
 
 

@@ -334,8 +334,9 @@ The tidied data set that I created has *dimensions* of **`r accel_dim`**. The *k
 ### A table that shows the total activity count for each day of the week 
 ```{r}
 new_accel_df %>%
-  group_by(day) %>%
-  summarize(total_activity = sum(activity_count, na.rm = TRUE)) %>%
+  rename(Day = day) %>% 
+  group_by(Day) %>%
+  summarize(Total_Activity_Count = sum(activity_count, na.rm = TRUE)) %>%
   knitr::kable(caption = 
       "**Table 1: Total Activity Count for each day (Sunday-Saturday)**"
   )
@@ -345,7 +346,7 @@ new_accel_df %>%
 
 
 
-Part 3
+# Problem 3 
 ```{r}
 new_accel_df %>%
   group_by(day, minute) %>%

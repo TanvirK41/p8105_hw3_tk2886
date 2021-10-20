@@ -44,6 +44,7 @@ instacart_df <-
   instacart %>% 
   janitor::clean_names()
 ```
+
 This information was gathered from the p8105 website. It is indicated that Instacart is an online grocery service that allows people to shop online from local stores. In New York City, some of the partner stores include Whole Foods, Fairway, and The Food Emporium. “The Instacart Online Grocery Shopping Dataset 2017” is an anonymized dataset with over 3 million online grocery orders from more than 200,000 Instacart users. We will be using this dataset to analyze specific things and outputting the results in a table or visual plots. 
 
 
@@ -66,6 +67,7 @@ key_variables =
   instacart_df %>% 
   names()
 ```
+
 The dimension of the *instacart dataframe* is **`r dimension_instacart`**. The dimensions represents the number of rows and the columns. The number of *rows* in the instacart dataframe are **`r instacart_row`**. The number of *columns* in the instacart dataframe are **`r instacart_col`**. 
 
 
@@ -73,14 +75,27 @@ The dimension of the *instacart dataframe* is **`r dimension_instacart`**. The d
 
 ### Analyzing the Aisle column in the dataframe 
 ```{r}
-instacart_df %>%
+aisle_analysis <- 
+  instacart_df %>%
   group_by(aisle) %>%
   summarise(quantity_ordered = n()) %>%
-  arrange(desc(quantity_ordered)) %>%
-  knitr::kable()
-```
-After analyzing the dataset, there are **134 aisles**. The top five aisles with the most items ordered from are **fresh vegetables**, **fresh fruits**, **packaged vegetables fruits**, **yogurt**, and **packaged cheese**. 
+  arrange(desc(quantity_ordered))
 
+number_of_aisles <-
+  aisle_analysis %>% nrow()
+
+top_aisle <-
+  aisle_analysis %>%
+  pull(aisle) %>%
+  first()
+
+top_five_aisle <- 
+  aisle_analysis %>%
+  pull(aisle) %>%
+  head(5)
+```
+
+After analyzing the dataset, there are **`r number_of_aisles`** aisles. The top aisle in the dataset is **`r top_aisle`**. The top five aisles with the most items ordered from are **`r top_five_aisle`**. 
 
 
 
@@ -94,15 +109,16 @@ instacart_df %>%
   geom_bar(stat = "identity") + 
   labs(
     title = "Number of items ordered in each Aisles",
-    subtitle = "From from Aisles with 10K orders", 
-    x = "Aisle Identification",
-    y = "Quantitiy purchased from each Aisle",
+    subtitle = "From Aisles with 10K orders", 
+    x = "Aisle Name",
+    y = "Number of items",
     caption = "Data from the Instacart package"
   ) + 
   coord_flip() +
-  theme(axis.text.y = element_text(size = 7))
+  theme(axis.text.y = element_text(size = 7, face = "bold"))
 ```
-This plot shows the number of items ordered in each Aisle from the Aisles that have more than 10,000 products ordered. The top five aisles from the aisles with more than 10,000 items ordered that have most items ordered are Fresh Vegetables, Fresh Fruits, Packaged vegetable fruits, yogurts, and packaged cheese. 
+
+This plot shows the number of items ordered in each Aisle from the Aisles that have more than 10,000 items ordered.The plot is arranged in a fashion that shows the aisles with the most items ordered and then subsequently shows the aisles with the least items ordered. The top five aisles from the aisles with more than 10,000 items are Fresh Vegetables, Fresh Fruits, Packaged vegetable fruits, yogurts, and packaged cheese. 
 
 
 
@@ -227,22 +243,9 @@ behavorial_df %>%
   filter(year %in% c("2006", "2010"),
          locationabbr %in% c("NY")) %>%
   group_by(locationdesc) %>%
-  ggplot(aes(x = data_value, y = response)) + 
-  geom_density_ridges(scale = .85) +
-  facet_grid(~ year)
-```
-
-
-
-
-```{r}
-behavorial_df %>%
-  filter(year %in% c("2006", "2010"),
-         locationabbr %in% c("NY")) %>%
-  group_by(locationdesc) %>%
-  ggplot(aes(x = data_value, y = response, color = locationdesc)) + 
-  geom_point() +
-  facet_grid(~ year)
+  ggplot(aes(x = response, y = data_value, color = locationdesc)) +
+  geom_boxplot() +
+  facet_grid(. ~ year)
 ```
 
 

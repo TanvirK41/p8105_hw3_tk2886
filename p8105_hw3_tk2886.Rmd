@@ -190,7 +190,7 @@ The brfss_smart 2010 dataset contains data from the Behavioral Risk Factors Surv
 
 
 
-### Analyzing which states for 2002 observed at 7 or more locations
+### A table that showcases which states for 2002 were observed at 7 or more locations
 ```{r code for filtering states in 2002 with 7 or more locations}
 bhdf_2002 <- 
   behavorial_df %>%
@@ -211,7 +211,7 @@ In *2002*, **`r states_2002`** are the six states that were observed at 7 or mor
 
 
 
-### Analyzing which states for 2010 observed at 7 or more locations
+### A table that showcases which states for 2010 were observed at 7 or more locations
 ```{r code for filtering states in 2010 that were observed 7 or more times}
 bhdf_2010 <- 
   behavorial_df %>%
@@ -255,7 +255,7 @@ behavorial_df %>%
 The spaghetti plot is showing the average data value of the places within the states from 2002 to 2010. The data values vary for the states from 2002 to 2010. It is hard to state if there's a trend happening for each specific state sine the data values vary as the we progress from 2002 to 2010. 
 
 
-### Making a two-panel plot showing, for the years 2006, and 2010, distribution of data_value for responses (“Poor” to “Excellent”) among locations in NY State
+### Making a two-panel plot showing, for the years 2006, and 2010, distribution of data value for responses (“Poor” to “Excellent”) among locations in NY State
 ```{r code for two-panel plot}
 behavorial_df %>%
   filter(year %in% c("2006", "2010"),
@@ -263,8 +263,9 @@ behavorial_df %>%
   group_by(locationdesc) %>%
   ggplot(aes(x = response, y = data_value, color = response)) +
   geom_boxplot() +
-  facet_grid(. ~ year) +
-  theme(axis.text.x = element_text(size = 7, face = "bold")) 
+  theme(legend.position = "right",
+        axis.text.x = element_text(size = 6)) + 
+  facet_grid(. ~ year)
 ```
 
 This 2 sided-panel boxplot displays the distribution of data value for responses ("Poor" to "Excellent") among locations in New York State. 
@@ -274,7 +275,7 @@ This 2 sided-panel boxplot displays the distribution of data value for responses
 # Problem 3
 
 ### Loading the Original Data and saving this and comparing this data to the new tidied data
-```{r Load the original dataset called accel_data and cleaning the data}
+```{r message = FALSE}
 accel_dfa <- 
   read_csv("./data/accel_data.csv") %>%
   janitor::clean_names() 
@@ -326,7 +327,7 @@ accel_row =
 accel_col = 
   new_accel_df %>% ncol()
 ```
-The original dataset that was provided has the *dimension* of **`r original_accel_df`**. We may be more specific and state that the number of *rows* in the original dataset is **`r original_accel_row`**. The number of *cols* in the original data is **`r original_accel_col`**. 
+The original dataset that was provided has the *dimension* of **`r original_accel_df`**. We may be more specific and state that the number of *rows* in the original dataset is **`r original_accel_row`**. The number of *columns* in the original data is **`r original_accel_col`**. 
 
 The tidied dataset that I created has *dimensions* of **`r accel_dim`**. The *key variables* in this tidied dataset are **`r key_var`**. The number of *rows* in this tidied dataset are **`r accel_row`**. The number of *columns* in this tidied dataset are **`r accel_col`**. 
 
@@ -367,4 +368,4 @@ new_accel_df %>%
 ```
 
 
-**Analysis of** *"Analysis of 24-hour Activity Per Day Plot":* One trend that is indicated from the graph is that the activity count is higher later on night on Wednesday (Wednesday having the highest activity count around the 20th hour of the day), Thursday, Friday, Saturday, and Sunday. At the beginning of the week like Sunday, the activity count is higher in the afternoon (12pm) hour which may indicate that he may go out with his family or friends for brunch or some weekly activity. Another trend that is observed is that around midnight, the activity count  is lower compared to the rest of the hours in the day which makes sense because maybe the individual is resting or not doing as much as work compared to morning and afternoon hours. Another trend that is shown is that around the afternoon hours, the activity count is higher (not the highest) which may indicate that the person may be at his job place working or doing some activity that leads to high activity counts. Another trend that is shown is that around (8hr mark), the activity count on Thursday is high which may indicate that the person wakes up early on that day and he probably goes out for a walk or has weekly task that he needs to complete. 
+*"Analysis of 24-hour Activity Per Day Plot":* One trend that is indicated from the graph is that the activity count is higher later at night on Wednesday (Wednesday having the highest activity count around the 20th hour of the day), Thursday, Friday, Saturday, and Monday. At the beginning of the week like Sunday, the activity count is higher in the afternoon (12pm) hour which may indicate that he may go out with his family or friends for brunch or some weekly activity. Another trend that is observed is that around midnight, the activity count  is lower compared to the rest of the hours in the day which makes sense because maybe the individual is resting or not doing as much as work compared to morning and afternoon hours. Another trend that is shown is that around the afternoon hours, the activity count is higher on Monday which may indicate that the person may be at his job place working or doing some activity that leads to high activity counts. Another trend that is shown is that around (8hr mark), the activity count on Thursday is high which may indicate that the person wakes up early on that day and he probably goes out for a walk or has weekly task that he needs to complete during the early morning hours. 

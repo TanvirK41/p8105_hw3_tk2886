@@ -37,7 +37,7 @@ scale_fill_discrete = scale_fill_viridis_d
 
 # QUESTION 1
 ### Loading the instacart data and cleaning the instacart data
-```{r}
+```{r Loading Instacart data}
 data("instacart")
 
 instacart_df <- 
@@ -50,7 +50,7 @@ This information was gathered from the p8105 website. It is indicated that Insta
 
 
 ### Analysis of instacart data
-```{r}
+```{r Analyzing Instacart data - dimension, row, column, key variable}
 dimension_instacart = 
   instacart_df %>% 
   dim()
@@ -73,8 +73,8 @@ The dimension of the *instacart dataframe* is **`r dimension_instacart`**. The d
 
 
 
-### Analyzing the Aisle column in the dataframe 
-```{r}
+### Analyzing the Aisle column in the dataset
+```{r Code for how many aisles in the Instacart dataset and which are the top aisles }
 aisle_analysis <- 
   instacart_df %>%
   group_by(aisle) %>%
@@ -100,7 +100,7 @@ After analyzing the dataset, there are **`r number_of_aisles`** aisles. The top 
 
 
 ### Plot that shows the aisles with more than 10000 items ordered from. 
-```{r}
+```{r goembar plot that shows the aisles with more than 10000 items ordered from in descending}
 instacart_df %>%
   group_by(aisle) %>%
   summarise(aisle_n = n()) %>%
@@ -172,8 +172,8 @@ Table 2 shows the mean hour of the day at which Pink Lady Apples and Coffee Ice 
 
 # QUESTION 2
 
-### Loading the brfss_smart2010 data and dleaning the brfss_smart2010 data
-```{r}
+### Loading the brfss_smart2010 data and cleaning the brfss_smart2010 data
+```{r Loading the brfss_smart2010 dataset and cleaning the dataset}
 data("brfss_smart2010")
 
 behavorial_df <- 
@@ -184,7 +184,6 @@ behavorial_df <-
   mutate(response = as.factor(response)) %>%
   mutate(response = forcats::fct_relevel(response, c("Poor", "Fair", "Good", "Very good", "Excellent")))
 ```
-
 
 
 

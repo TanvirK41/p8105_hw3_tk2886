@@ -68,7 +68,7 @@ key_variables =
   names()
 ```
 
-The dimension of the *instacart dataframe* is **`r dimension_instacart`**. The dimensions represents the number of rows and the columns. The number of *rows* in the instacart dataframe are **`r instacart_row`**. The number of *columns* in the instacart dataframe are **`r instacart_col`**. 
+The dimension of the *instacart dataset* is **`r dimension_instacart`**. The dimensions represents the number of rows and the columns. The number of *rows* in the instacart dataset are **`r instacart_row`**. The number of *columns* in the instacart dataset are **`r instacart_col`**. The number of *observations* in the instacart dataset are **`r instacart_row`**. 
 
 
 
@@ -174,7 +174,7 @@ Table 2 shows the mean hour of the day at which Pink Lady Apples and Coffee Ice 
 
 ### Loading the brfss_smart2010 data and cleaning the brfss_smart2010 data
 ```{r loading and cleaning the brfss_smart2010 dataset}
-data("brfss_smart2010")
+data("brfss_smart2010") 
 
 behavorial_df <- 
   brfss_smart2010 %>% 
@@ -186,6 +186,26 @@ behavorial_df <-
 ```
 
 The brfss_smart 2010 dataset contains data from the Behavioral Risk Factors Surveillance System for Selected Metropolitan Area Risk Trends (SMART) for 2002-2010. The data is allowed to be accessed from data.gov. This data may be used to identify emerging health problems, establish and trak health objectives, and develop and evaluate public health policies and programs. The dataset is not final since the data will be updated annually as it becomes available. 
+
+
+### Analyzing the original brfss_smart2010 dataet and the filtered and cleaned brfss_smart dataset. 
+```{r}
+observation_bhdf <- 
+  brfss_smart2010 %>% nrow()
+
+bhdf_2010_col <- 
+  brfss_smart2010 %>% ncol()
+
+observation_cleandf <-
+  behavorial_df %>% nrow()
+
+column_cleandf <-
+  behavorial_df %>% ncol()
+```
+
+The number of *observations* in the original brfss_smart2010 dataset are **`r observation_bhdf`**. The number of *rows* in the original brfss_smart2010 dataset are **`r observation_bhdf`**. The number of *columns* in the original brfss_smart2010 dataset are **`r bhdf_2010_col`.** 
+
+For the tidied and filtered brfss dataset, there are **`r observation_cleandf`** observations.The number of *rows* in the tidied and filtered brfss dataset are **`r observation_cleandf`**. The number of *columns* in the tidied and filtered brfss dataset are **`r column_cleandf`.** 
 
 
 

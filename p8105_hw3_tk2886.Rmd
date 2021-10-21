@@ -118,7 +118,7 @@ instacart_df %>%
   theme(axis.text.y = element_text(size = 7, face = "bold"))
 ```
 
-This plot shows the number of items ordered in each Aisle from the Aisles that have more than 10,000 items ordered. The plot is arranged in a descending order which shows at the top of the plot with the aisles with the most items ordered. The top five aisles from the aisles with more than 10,000 items are Fresh Vegetables, Fresh Fruits, Packaged vegetable fruits, yogurts, and packaged cheese. 
+This plot shows the number of items ordered in each Aisle from the Aisles that have more than 10,000 items ordered. The plot is arranged in a descending order which shows aisles with the most items ordered at the top of the plot. The top five aisles from the aisles with more than 10,000 items ordered are Fresh Vegetables, Fresh Fruits, Packaged vegetable fruits, yogurts, and packaged cheese. 
 
 
 
@@ -127,9 +127,9 @@ This plot shows the number of items ordered in each Aisle from the Aisles that h
 instacart_df %>%
   filter(aisle %in% c("baking ingredients", "dog food care", "packaged vegetables fruits")) %>%
   group_by(aisle, product_name) %>%
-  summarise(Product_Quantity = n()) %>%
-  filter(min_rank(desc(Product_Quantity)) < 4) %>%
-  arrange(aisle, desc(Product_Quantity)) %>%
+  summarise(order_count = n()) %>%
+  filter(min_rank(desc(order_count)) < 4) %>%
+  arrange(aisle, desc(order_count)) %>%
   knitr::kable(
     caption = 
       "**Table 1: Showcasing the Three Most Popular items in Baking Ingredients Aisle, Dog Food Care Aisle, and Packaged Vegetables Fruits aisle**"
@@ -140,7 +140,7 @@ The most popular product in Baking Ingredients aisle is Light Brown sugar with 4
 
 
 
-### Showing the mean hour of the day at which Pink Lady Apples and Coffee Ice Cream are ordered on each day of the week; format this table for human readers (i.e. produce a 2 x 7 table).
+### Showing the mean hour of the day at which Pink Lady Apples and Coffee Ice Cream are ordered on each day of the week; format this table for human readers (2 x 7 table).
 ```{r message = FALSE}
 instacart_df %>%
   mutate(order_dow = recode(order_dow,
@@ -165,7 +165,7 @@ instacart_df %>%
       "**Table 2: Mean Hour of the day at which Pink Lady Apples and Coffee Icre Cream are ordered eady day of the week**" 
   )
 ```
-Table 2 shows the mean hour of the day at which Pink Lady Apples and Coffee Ice Cream are ordered on each day of the week. **Coffee Ice Cream** is ordered latest on *Tuesday*, while **Pink Lady Apples** is ordered latest on *Wednesday*. Between Coffee Ice Cream and Pink Lady Apples, **Pink Lady Apples** are ordered earlier in the day out of the for Sunday, Monday, Tuesday, Wednesday, Thursday, and Saturday. Friday is the only day when **Coffee Ice Cream** is ordered earlier in the day. 
+Table 2 shows the mean hour of the day at which Pink Lady Apples and Coffee Ice Cream are ordered on each day of the week. **Coffee Ice Cream** is ordered latest on *Tuesday*, while **Pink Lady Apples** is ordered latest on *Wednesday*. Between Coffee Ice Cream and Pink Lady Apples, **Pink Lady Apples** are ordered earlier in the day for Sunday, Monday, Tuesday, Wednesday, Thursday, and Saturday. Friday is the only day when **Coffee Ice Cream** is ordered earlier in the day. 
 
 
 

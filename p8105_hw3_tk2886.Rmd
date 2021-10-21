@@ -132,8 +132,8 @@ instacart_df %>%
   arrange(aisle, desc(order_count)) %>%
   knitr::kable(
     caption = 
-      "**Table 1: Showcasing the Three Most Popular items in Baking Ingredients Aisle, Dog Food Care Aisle, and Packaged Vegetables Fruits aisle**"
-  ) 
+      "**Table 1:** *Showcasing the Three Most Popular items in Baking Ingredients Aisle, Dog Food Care Aisle, and Packaged Vegetables Fruits aisle*"
+    ) 
 ```
 
 The most popular product in Baking Ingredients aisle is Light Brown sugar with 499 times ordered. The most popular product in dog food care is Snack sticks chicken & rice recipe dog treats with 30 times ordered. The most popular product in packaged vegetable fruits is organic baby spinach which has been ordered 9,784 times. 
@@ -162,8 +162,8 @@ instacart_df %>%
   knitr::kable(
     digits = 1, 
     caption = 
-      "**Table 2: Mean Hour of the day at which Pink Lady Apples and Coffee Icre Cream are ordered eady day of the week**" 
-  )
+      "**Table 2:** *Mean Hour of the day at which Pink Lady Apples and Coffee Icre Cream are ordered eady day of the week*"
+    )
 ```
 Table 2 shows the mean hour of the day at which Pink Lady Apples and Coffee Ice Cream are ordered on each day of the week. **Coffee Ice Cream** is ordered latest on *Tuesday*, while **Pink Lady Apples** is ordered latest on *Wednesday*. Between Coffee Ice Cream and Pink Lady Apples, **Pink Lady Apples** are ordered earlier in the day for Sunday, Monday, Tuesday, Wednesday, Thursday, and Saturday. Friday is the only day when **Coffee Ice Cream** is ordered earlier in the day. 
 
@@ -231,7 +231,9 @@ bhdf_2002 <-
   filter(location_count >= 7) %>%
   arrange(location_count)
 
-bhdf_2002 %>% knitr::kable()
+bhdf_2002 %>% knitr::kable(
+  caption = "**Table 1:** *States in 2002 with 7 or more locations Observed*"
+  )
 
 states_2002 <- 
   bhdf_2002 %>% pull(States)
@@ -252,7 +254,9 @@ bhdf_2010 <-
   filter(location_count >= 7) %>%
   arrange(location_count) 
 
-bhdf_2010 %>% knitr::kable()
+bhdf_2010 %>% knitr::kable(
+  caption = "**Table 2:** *States in 2010 with 7 or more locations Observed*"
+  )
 
 states_2010 <- 
   bhdf_2010 %>% pull(States)
@@ -381,9 +385,10 @@ new_accel_df %>%
   rename(Day = day) %>% 
   group_by(Day) %>%
   summarize(Total_Activity_Count = sum(activity_count, na.rm = TRUE)) %>%
-  knitr::kable(caption = 
-      "**Table 1: Total Activity Count for each day (Sunday-Saturday)**"
-  )
+  knitr::kable(
+    caption = 
+      "**Table 1:** *Total Activity Count for each day (Sunday-Saturday)*"
+    )
 ```
 **Analysis of Table 1:** One trend that is shown is that towards end of the each week, Wednesday, Thursday, and Friday, the activity count is higher compared to other days. On Saturday the activity is the lowest and one may infer that the person may not be working that day and it is his rest day. 
 

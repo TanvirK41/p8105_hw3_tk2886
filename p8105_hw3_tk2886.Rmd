@@ -165,7 +165,7 @@ instacart_df %>%
       "**Table 2: Mean Hour of the day at which Pink Lady Apples and Coffee Icre Cream are ordered eady day of the week**" 
   )
 ```
-Table 2 shows the mean hour of the day at which Pink Lady Apples and Coffee Ice Cream are ordered on each day of the week. **Coffee Ice Cream** is ordered latest on *Tuesday*, while **Pink Lady Apples** is ordered latest on *Wednesday*. Between Coffee Ice Cream and Pink Lady Apples, **Pink Lady Apples** are ordered earlier in the day out of the 6 (Sunday, Monday, Tuesday, Wednesday, Thursday, and Saturday) of the 7 days. Friday is the only day when **Coffee Ice Cream** is ordered earlier in the day. 
+Table 2 shows the mean hour of the day at which Pink Lady Apples and Coffee Ice Cream are ordered on each day of the week. **Coffee Ice Cream** is ordered latest on *Tuesday*, while **Pink Lady Apples** is ordered latest on *Wednesday*. Between Coffee Ice Cream and Pink Lady Apples, **Pink Lady Apples** are ordered earlier in the day out of the for Sunday, Monday, Tuesday, Wednesday, Thursday, and Saturday. Friday is the only day when **Coffee Ice Cream** is ordered earlier in the day. 
 
 
 

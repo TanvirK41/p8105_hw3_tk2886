@@ -176,7 +176,7 @@ Table 2 shows the mean hour of the day at which Pink Lady Apples and Coffee Ice 
 ```{r loading and cleaning the brfss_smart2010 dataset}
 data("brfss_smart2010") 
 
-behavorial_df <- 
+behaviorial_df <- 
   brfss_smart2010 %>% 
   janitor::clean_names() %>%
   filter(topic == "Overall Health") %>%
@@ -185,7 +185,11 @@ behavorial_df <-
   mutate(response = forcats::fct_relevel(response, c("Poor", "Fair", "Good", "Very good", "Excellent")))
 ```
 
-The brfss_smart 2010 dataset contains data from the Behavioral Risk Factors Surveillance System for Selected Metropolitan Area Risk Trends (SMART) for 2002-2010. The data is allowed to be accessed from data.gov. This data may be used to identify emerging health problems, establish and trak health objectives, and develop and evaluate public health policies and programs. The dataset is not final since the data will be updated annually as it becomes available. 
+The brfss_smart 2010 dataset contains data from the Behavioral Risk Factors Surveillance System for Selected Metropolitan Area Risk Trends (SMART) for 2002-2010. The data is allowed to be accessed from data.gov. This data may be used to identify emerging health problems, establish and track health objectives, and develop and evaluate public health policies and programs. The dataset is not final since the data will be updated annually as it becomes available. 
+
+In the cleaned and tidied version of the brfss_smart 2010 dataset called behaviorial_df, I'm focusing only in the "Overall Health" topic and including only responses from "Excellent" to "Poor". 
+
+
 
 
 ### Analyzing the original brfss_smart2010 dataet and the filtered and cleaned brfss_smart dataset. 
@@ -197,15 +201,21 @@ bhdf_2010_col <-
   brfss_smart2010 %>% ncol()
 
 observation_cleandf <-
-  behavorial_df %>% nrow()
+  behaviorial_df %>% nrow()
 
 column_cleandf <-
-  behavorial_df %>% ncol()
+  behaviorial_df %>% ncol()
+
+name_cleandf <- 
+  behaviorial_df %>% names()
+  
 ```
 
 The number of *observations* in the original brfss_smart2010 dataset are **`r observation_bhdf`**. The number of *rows* in the original brfss_smart2010 dataset are **`r observation_bhdf`**. The number of *columns* in the original brfss_smart2010 dataset are **`r bhdf_2010_col`.** 
 
-For the tidied and filtered brfss dataset, there are **`r observation_cleandf`** observations.The number of *rows* in the tidied and filtered brfss dataset are **`r observation_cleandf`**. The number of *columns* in the tidied and filtered brfss dataset are **`r column_cleandf`.** 
+For the tidied and filtered brfss dataset, there are **`r observation_cleandf`** *observations*.The number of *rows* in the tidied and filtered brfss dataset are **`r observation_cleandf`**. The number of *columns* in the tidied and filtered brfss dataset are **`r column_cleandf`.** 
+
+The key variables between the original brfss_smart2010 data and the cleaned and tidied dataset (behaviorial_df) do not change. We still have the same number of key variables. We are not omitting any of the columns. THe *key variable names* are **`r name_cleandf`**. 
 
 
 
@@ -213,7 +223,7 @@ For the tidied and filtered brfss dataset, there are **`r observation_cleandf`**
 ### A table that showcases which states for 2002 were observed at 7 or more locations
 ```{r code for filtering states in 2002 with 7 or more locations}
 bhdf_2002 <- 
-  behavorial_df %>%
+  behaviorial_df %>%
   rename(States = locationabbr) %>%
   filter(year == 2002) %>%
   group_by(States) %>%
@@ -234,7 +244,7 @@ In *2002*, **`r states_2002`** are the six states that were observed at 7 or mor
 ### A table that showcases which states for 2010 were observed at 7 or more locations
 ```{r code for filtering states in 2010 that were observed 7 or more times}
 bhdf_2010 <- 
-  behavorial_df %>%
+  behaviorial_df %>%
   rename(States = locationabbr) %>%
   filter(year == 2010) %>%
   group_by(States) %>%
@@ -254,7 +264,7 @@ In *2010*, **`r states_2010`** are the 14 states that were observed at 7 or more
 
 ### Creating a Spaghetti Plot of the average value over time within a state
 ```{r message = FALSE}
-behavorial_df %>%
+behaviorial_df %>%
   rename(States = locationabbr) %>%
   filter(response == "Excellent") %>%
   group_by(year, States) %>%
@@ -264,7 +274,7 @@ behavorial_df %>%
   labs(
     title = "Average data value over time within a state",
     x = "Year",
-    y = "Average Data Value",
+    y = "Average (BRFSS) Data Value",
     caption = "Data from the BRFSS dataset"
   ) + 
   theme(legend.position = "right",
@@ -272,17 +282,23 @@ behavorial_df %>%
         legend.key.size = unit(0.3, 'cm'))
 ```
 
-The spaghetti plot is showing the average data value of the places within the states from 2002 to 2010. The data values vary for the states from 2002 to 2010. It is hard to state if there's a trend happening for each specific state sine the data values vary as the we progress from 2002 to 2010. 
+The spaghetti plot is showing the BRFSS data value of the places within the states from 2002 to 2010. The data values vary for the states from 2002 to 2010. It is hard to state if there's a trend happening for each specific state or across each state since the data values vary the we progress from 2002 to 2010. However, we may state that the average data value for some states starts high and then it decreases. 
 
 
 ### Making a two-panel plot showing, for the years 2006, and 2010, distribution of data value for responses (“Poor” to “Excellent”) among locations in NY State
 ```{r code for two-panel plot}
-behavorial_df %>%
+behaviorial_df %>%
   filter(year %in% c("2006", "2010"),
          locationabbr %in% c("NY")) %>%
   group_by(locationdesc) %>%
   ggplot(aes(x = response, y = data_value, color = response)) +
   geom_boxplot() +
+  labs(
+    title = "Distribution of BRFSS data value among NY Location",
+    x = "Response",
+    y = "Average (BRFSS) Data Value",
+    caption = "Data from the BRFSS dataset"
+  ) + 
   theme(legend.position = "right",
         axis.text.x = element_text(size = 6)) + 
   facet_grid(. ~ year)

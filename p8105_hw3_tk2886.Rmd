@@ -45,7 +45,7 @@ instacart_df <-
   janitor::clean_names()
 ```
 
-This information was gathered from the p8105 website. It is indicated that Instacart is an online grocery service that allows people to shop online from local stores. In New York City, some of the partner stores include Whole Foods, Fairway, and The Food Emporium. “The Instacart Online Grocery Shopping Dataset 2017” is an anonymized dataset with over 3 million online grocery orders from more than 200,000 Instacart users. We will be using this dataset to analyze specific things and outputting the results in a table or visual plots. 
+This information was gathered from the p8105 website. It is indicated that Instacart is an online grocery service that allows people to shop online from local stores. In New York City, some of the partner stores include Whole Foods and The Food Emporium. “The Instacart Online Grocery Shopping Dataset 2017” is an anonymized dataset with over three million online grocery orders from more than 200,000 Instacart users. We will be using this dataset to analyze specific things and outputting the results in a table or visual plots. 
 
 
 
@@ -118,14 +118,14 @@ instacart_df %>%
   theme(axis.text.y = element_text(size = 7, face = "bold"))
 ```
 
-This plot shows the number of items ordered in each Aisle from the Aisles that have more than 10,000 items ordered.The plot is arranged in a fashion that shows the aisles with the most items ordered and then subsequently shows the aisles with the least items ordered. The top five aisles from the aisles with more than 10,000 items are Fresh Vegetables, Fresh Fruits, Packaged vegetable fruits, yogurts, and packaged cheese. 
+This plot shows the number of items ordered in each Aisle from the Aisles that have more than 10,000 items ordered. The plot is arranged in a descending order which shows at the top of the plot with the aisles with the most items ordered. The top five aisles from the aisles with more than 10,000 items are Fresh Vegetables, Fresh Fruits, Packaged vegetable fruits, yogurts, and packaged cheese. 
 
 
 
 ### Creating A table showing the three most popular items in each of the aisles “baking ingredients”, “dog food care”, and “packaged vegetables fruits”.
 ```{r results='asis', message = FALSE}
 instacart_df %>%
-  filter(aisle %in%  c("baking ingredients", "dog food care", "packaged vegetables fruits")) %>%
+  filter(aisle %in% c("baking ingredients", "dog food care", "packaged vegetables fruits")) %>%
   group_by(aisle, product_name) %>%
   summarise(Product_Quantity = n()) %>%
   filter(min_rank(desc(Product_Quantity)) < 4) %>%
@@ -136,7 +136,7 @@ instacart_df %>%
   ) 
 ```
 
-The most popular product in Baking Ingredients is Light Brown sugar with 499 times ordered. The most popular product in dog food care is Snack sticks chicken & rice recipe dog treats with 30 times ordered. The most popular product in packaged vegetable fruits is organic baby spinach which has been ordered 9,784 times. 
+The most popular product in Baking Ingredients aisle is Light Brown sugar with 499 times ordered. The most popular product in dog food care is Snack sticks chicken & rice recipe dog treats with 30 times ordered. The most popular product in packaged vegetable fruits is organic baby spinach which has been ordered 9,784 times. 
 
 
 
@@ -165,12 +165,13 @@ instacart_df %>%
       "**Table 2: Mean Hour of the day at which Pink Lady Apples and Coffee Icre Cream are ordered eady day of the week**" 
   )
 ```
-Table 2 shows the mean hour of the day at which Pink Lady Apples and Coffee Ice Cream are ordered on each day of the week. **Coffee Ice Cream** is ordered latest on *Tuesday*, while **Pink Lady Apples** is ordered latest on *Wednesday*. Between Coffee Ice Cream and Pink Lady Apples, **Pink Lady Apples** are ordered earlier in the day out of the 6 of the 7 days. Friday is the only day when **Coffee Ice Cream** is ordered earlier in the day. 
+Table 2 shows the mean hour of the day at which Pink Lady Apples and Coffee Ice Cream are ordered on each day of the week. **Coffee Ice Cream** is ordered latest on *Tuesday*, while **Pink Lady Apples** is ordered latest on *Wednesday*. Between Coffee Ice Cream and Pink Lady Apples, **Pink Lady Apples** are ordered earlier in the day out of the 6 (Sunday, Monday, Tuesday, Wednesday, Thursday, and Saturday) of the 7 days. Friday is the only day when **Coffee Ice Cream** is ordered earlier in the day. 
 
 
 
 
 # QUESTION 2
+
 ### Loading the brfss_smart2010 data and dleaning the brfss_smart2010 data
 ```{r}
 data("brfss_smart2010")

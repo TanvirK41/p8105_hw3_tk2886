@@ -271,20 +271,20 @@ This 2 sided-panel boxplot displays the distribution of data value for responses
 
 
 
-# Question 3
+# Problem 3
 
 ### Loading the Original Data and saving this and comparing this data to the new tidied data
-```{r}
+```{r Load the original dataset called accel_data and cleaning the data}
 accel_dfa <- 
   read_csv("./data/accel_data.csv") %>%
   janitor::clean_names() 
 ```
-
+The accel_data dataset represents five weeks of accelerometer data collected on a 63 year-old male with BMI 25, who was admitted to the Advanced Cardiac Care Center of Columbia University Medical Center and diagnosed with congestive heart failure. 
 
 
 
 ### Clean and Tidying the data 
-```{r}
+```{r Using the original data to create a table that is user-friendly and easier to read}
 new_accel_df <-
   accel_dfa %>%
   pivot_longer(
@@ -303,13 +303,13 @@ new_accel_df <-
            day %in% c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday") ~ "Weekday", 
            day %in% c("Saturday", "Sunday") ~ "Weekend")) 
 ```
-Both the original accelerometer dataset that was provided and the cleaned and tidy version that is created from that specific data frame represents data for one person. This dataset shows the collected measures of  “activity counts” in a short period; one-minute intervals. There is not 50,400 different people or objects or entity but rather the 50,400 represents the 50,400 minutes that was logged in by that one person. That male individual was observed and measured for 35 days by using an accelerometer. The information that was provided with the dataset states that the activity counts for each minute of a 24 hour day starting at midnight which means we have data for the whole day instead of specific time of the day. We may also divide 50,400 by 1440 (1440 minutes equals to one day) which equals to 35 days which is the number of days that the male individual was observed for. 
+Both the original accelerometer dataset that was provided and the cleaned and tidy version that is created from that specific dataset represents data for one person. This dataset shows the collected measures of  “activity counts” in a short period; one-minute intervals. There is not 50,400 different people or objects but rather the 50,400 represents the 50,400 minutes that was logged in by that one person. That male individual was observed and measured for 35 days by using an accelerometer. The information that was provided with the dataset states that the activity counts consists of each minute of a 24 hour day starting at midnight which means we have data for the whole day instead of a specific time interval of the day. We may also divide 50,400 by 1440 (1440 minutes equals to one day) which equals to 35 days which is the number of days that the male individual was observed for. 
 
 
 
 
-### Analyzing the accelerometer data
-```{r}
+### Analyzing the accelerometer dataset 
+```{r code for analyzing the original and the new tidy version of accelerometer dataset}
 original_accel_df = 
   accel_dfa %>% dim()
 original_accel_row = 
@@ -326,15 +326,15 @@ accel_row =
 accel_col = 
   new_accel_df %>% ncol()
 ```
-The original dataset that was provided to us has the *dimension* of **`r original_accel_df`**. We may be more specific and state that the number of *rows* in the original dataset is **`r original_accel_row`**. The number of *cols* in the original data is **`r original_accel_col`**. 
+The original dataset that was provided has the *dimension* of **`r original_accel_df`**. We may be more specific and state that the number of *rows* in the original dataset is **`r original_accel_row`**. The number of *cols* in the original data is **`r original_accel_col`**. 
 
-The tidied data set that I created has *dimensions* of **`r accel_dim`**. The *key variables* in this tidied dataset are **`r key_var`**. The number of *rows* in this tidied dataset are **`r accel_row`**. The number of *columns* in this tidied dataset are **`r accel_col`**. 
-
-
+The tidied dataset that I created has *dimensions* of **`r accel_dim`**. The *key variables* in this tidied dataset are **`r key_var`**. The number of *rows* in this tidied dataset are **`r accel_row`**. The number of *columns* in this tidied dataset are **`r accel_col`**. 
 
 
-### A table that shows the total activity count for each day of the week 
-```{r}
+
+
+### A table that shows the total activity count for each day of the week - arranged from Sunday to Saturday
+```{r code for calculating total activity count for each of the day of the week}
 new_accel_df %>%
   rename(Day = day) %>% 
   group_by(Day) %>%
@@ -343,13 +343,12 @@ new_accel_df %>%
       "**Table 1: Total Activity Count for each day (Sunday-Saturday)**"
   )
 ```
-**Analysis of Table 1:** One trend that is shown is that towards end of the each week, Wednesday, Thursday, and Friday, the activity count is higher compared to other days. 
+**Analysis of Table 1:** One trend that is shown is that towards end of the each week, Wednesday, Thursday, and Friday, the activity count is higher compared to other days. On Saturday the activity is the lowest and one may infer that the person may not be working that day and it is his rest day. 
 
 
 
-
-# Problem 3 
-```{r}
+### Creating a single-panel plot that shows the 24 hour activity time courses for each day 
+```{r code for creating a single-panel plot}
 new_accel_df %>%
   group_by(day, minute) %>%
   ggplot(aes(x = minute, 
@@ -368,4 +367,4 @@ new_accel_df %>%
 ```
 
 
-**Analysis of** *"Analysis of 24-hour Activity Per Day Plot":* One trend that is indicated from the graph is that the activity count is higher later on night on Thursday, Friday, Saturday. Earlier in the week like Sunday and Monday, the activity count is higher in the late morning hours to afternoon (12pm) hour. 
+**Analysis of** *"Analysis of 24-hour Activity Per Day Plot":* One trend that is indicated from the graph is that the activity count is higher later on night on Wednesday (Wednesday having the highest activity count around the 20th hour of the day), Thursday, Friday, Saturday, and Sunday. At the beginning of the week like Sunday, the activity count is higher in the afternoon (12pm) hour which may indicate that he may go out with his family or friends for brunch or some weekly activity. Another trend that is observed is that around midnight, the activity count  is lower compared to the rest of the hours in the day which makes sense because maybe the individual is resting or not doing as much as work compared to morning and afternoon hours. Another trend that is shown is that around the afternoon hours, the activity count is higher (not the highest) which may indicate that the person may be at his job place working or doing some activity that leads to high activity counts. Another trend that is shown is that around (8hr mark), the activity count on Thursday is high which may indicate that the person wakes up early on that day and he probably goes out for a walk or has weekly task that he needs to complete. 
